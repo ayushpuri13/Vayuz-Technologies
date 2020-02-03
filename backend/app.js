@@ -6,7 +6,7 @@ var multer =require("multer");
 var nodemailer=require("nodemailer");
 
 
-const port =3000;
+const port =8080;
 
 var url = "mongodb://localhost:27017/vayuz";
 
@@ -16,6 +16,7 @@ const app= express();
 app.use(cors());
 app.use(bodyparser.json());
 app.use("/images",express.static(path.join("./Images")))
+app.use(express.static(path.join(__dirname + "/dist")))
 
 const MIME_TYPE_MAP={
     'image/png':'png',
@@ -66,6 +67,16 @@ var MySchema =mongoose.model('Test',{FullName:String,
 
 mongoose.connect(url,{useNewUrlParser:true},{useUnifiedTopology :true});
 mongoose.connection.on('error', console.error.bind(console, 'MongoDB connection error:'));
+
+app.get('*',(req,res)=>{
+    //   return  res.json({Result:emps});
+    
+        
+        return  res.render(path.join(__dirname + "/dist/task/index.html"));
+      
+    });
+    
+    
 
 app.get('/employees',(req,res)=>{
 //   return  res.json({Result:emps});
@@ -186,6 +197,6 @@ app.post('/employees',multer({storage:storage}).single("Image"),(req,res)=>{
 //     res.json({Result:"successfully deleted"});
 // })
 
-app.listen(8080,function(){
+app.listen(port,function(){
 console.log("Server is listening at port 8080");
 });
