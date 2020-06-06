@@ -116,7 +116,7 @@ app.post('/employees',multer({storage:storage}).single("Image"),(req,res)=>{
         secure: false, // true for 465, false for other ports
         auth: {
           user: 'ayushpuri13@gmail.com', // generated ethereal user
-          pass: 'xruuzlgjujvmjtrk' // generated ethereal password
+          pass: '' // generated ethereal password
         },
         tls:{
             rejectUnauthorized:false
